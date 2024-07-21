@@ -1,0 +1,71 @@
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        if(height.size()==1 || height.size()==2) return 0;
+        { int first=height[0];
+          bool odd=true;
+          for(int i=0;i<height.size();i++){
+            if(!(height[i]==first)) odd=false;
+          }
+          if(odd) return 0;
+        }
+        int initial,sum=0;
+        if(height[0]==0) initial=1;
+        else initial=0;
+        while(!(initial>=height.size()-2)){
+            int end;
+            bool cond1=false,cond2=false;
+            
+            for(int i=initial+2;i<height.size();i++){
+                if(height[initial+1]<height[initial] &&
+                   height[i]>=height[initial]){
+                    end=i;
+                    cond1=true;
+                    break;
+                }
+            }
+
+            if(cond1){ 
+                for(int k=initial+1;k<end;k++){
+                    int temp;
+                    temp=height[initial]-height[k];
+                    sum=sum+temp;
+                }
+                initial=end;
+                continue;
+            }
+
+          for(int i=height.size()-1;i>initial+1;i--){
+                if(height[initial+1]<height[initial] &&
+                   height[i]<height[initial]){
+                    bool cond=true;
+                    for(int j=initial+1;j<i;j++){                
+                        if(!(height[j]<height[i])){
+                            cond=false;
+                            break;
+                        }
+                    }
+                    if(cond){
+                        end=i;
+                        cond2=true;
+                        break;
+                    }
+                }
+            }
+ 
+            if(cond2){
+                for(int j=initial+1;j<end;j++){
+                    int add;
+                    add=height[end]-height[j];
+                    sum+=add;
+                }
+                    initial=end;                 
+                    continue;               
+            }
+            else{
+                initial++;
+            }
+        }
+        return sum;    
+    }
+};
