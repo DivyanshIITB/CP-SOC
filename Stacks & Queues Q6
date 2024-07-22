@@ -1,0 +1,67 @@
+class Solution {
+public:
+    bool isValid(string s) {
+        for(int i=0;i<s.size();i++){
+            if(s[i]=='('){
+                bool cond=false;
+                for(int j=i+1;j<s.size();j++){
+                    if(s[j]==')'){ cond=true;
+                                   break;
+                    }
+                }
+                if(!cond) return false;
+            }
+
+            if(s[i]=='{'){
+                bool cond=false;
+                for(int j=i+1;j<s.size();j++){
+                    if(s[j]=='}'){ cond=true;
+                                   break;
+                    }
+                }
+                if(!cond) return false;
+            }
+
+            if(s[i]=='['){
+                bool cond=false;
+                for(int j=i+1;j<s.size();j++){
+                    if(s[j]==']'){ cond=true;
+                                   break;
+                    }
+                }
+                if(!cond) return false;
+            }
+
+            if(s[i]==')'){
+                bool cond=false;
+                for(int j=0;j<i;j++){
+                    if(s[j]=='('){ cond=true;
+                                   break;
+                    }
+                }
+                if(!cond) return false;
+            }
+
+            if(s[i]=='}'){
+                bool cond=false;
+                for(int j=0;j<i;j++){
+                    if(s[j]=='{'){ cond=true;
+                                   break;
+                    }
+                }
+                if(!cond) return false;
+            }
+
+            if(s[i]==']'){
+                bool cond=false;
+                for(int j=0;j<i;j++){
+                    if(s[j]=='['){ cond=true;
+                                   break;
+                    }
+                }
+                if(!cond) return false;
+            }
+        }
+        return true;    
+    }
+};
