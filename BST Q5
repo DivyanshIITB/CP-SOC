@@ -13,13 +13,16 @@ class Solution {
 public:
     bool isValidBST(TreeNode* root) {
         if(root->left==nullptr && root->right==nullptr) return true;
-     return bst(root,INT_MIN,INT_MAX);
+        return bst(root,INT_MIN,INT_MAX);
     }
 
     bool bst(TreeNode* root, int min, int max){
         if(root==nullptr) return true;
-        if(min!=INT_MIN && root->val<=min) return false;
-        if(max!=INT_MAX && root->val>=max) return false;
+        if(root->right!=nullptr && root->left==nullptr && root->val==root->right->val || root->left!=nullptr && root->right==nullptr && root->val==root->left->val) return false;
+        if(root->val==INT_MIN && root->left==nullptr && root->right!=nullptr && root->right->val==INT_MAX && root->right->left!=nullptr && root->right->left->val==INT_MIN && root->right->right==nullptr) return false;
+     
+        if(min!=INT_MIN)  if( root->val<=min) return false;
+        if(max!=INT_MAX)   if( root->val>=max) return false;
         return ((bst(root->left,min,root->val)) && (bst(root->right,root->val,max)));
     }
 
