@@ -1,0 +1,51 @@
+class Solution {
+public:
+    int findKthLargest(vector<int>& nums, int k) {
+        vector<int> ans;
+        int x=0;
+        buildheap(nums);
+        int n=nums.size();
+        while(x!=k){
+        int a=extract(nums,n);
+        n--;
+        ans.push_back(a);
+        x++;
+        }
+        return ans[x-1];
+    }
+
+    int extract(vector<int> &nums,int n){
+        int max=nums[0];
+        nums[0]=nums[n-1];
+        n--;
+        maxheapify(nums,0,n);
+        return max;
+    }
+
+    void buildheap(vector<int> &A){
+        for(int i=A.size()/2;i>=0;i--){
+            maxheapify(A,i,A.size());
+        }
+        return;
+    }
+
+    void maxheapify(vector<int> &A, int i,int n){
+        int l=2*i+1,r=2*i+2;
+        int maxindex=i;
+
+        if(l<n && A[l]>A[maxindex]) maxindex=l;
+        if(r<n && A[r]>A[maxindex]) maxindex=r;
+
+        if(maxindex!=i){
+            swap(A[i],A[maxindex]);
+            maxheapify(A,maxindex,n);
+        }
+    }
+
+    void swap(int &a,int &b){
+        int temp=a;
+        a=b;
+        b=temp;
+    }
+
+};
